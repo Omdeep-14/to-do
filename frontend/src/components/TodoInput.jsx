@@ -3,7 +3,10 @@ import React, { useState } from "react";
 function TodoInput() {
   const [todoInp, setTodoInp] = useState("");
   const [todos, setTodos] = useState([]);
-  const [completed, setCompleted] = useState(0);
+
+  const completed = todos.filter((t) => t.isCompleted).length;
+  const incompleted = todos.filter((t) => !t.isCompleted).length;
+  const total = todos.length;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,12 +29,10 @@ function TodoInput() {
     );
 
     setTodos(newTodo);
-    setCompleted(todos.filter((t) => t.isCompleted).length);
   };
 
   const handleDelete = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
-    setCompleted(todos.filter((t) => t.isCompleted).length);
   };
 
   return (
@@ -86,15 +87,15 @@ function TodoInput() {
           <div className="flex  justify-center items-center gap-4">
             <div className="border-gray-900 border-r-2 pr-3 ">
               <div>Completed</div>
-              <div></div>
+              <div>{completed}</div>
             </div>
-            <div>
-              <div className="border-gray-900 border-r-2 pr-3 ">Incomplete</div>
-              <div></div>
+            <div className="border-gray-900 border-r-2 pr-3 ">
+              <div>Incomplete</div>
+              <div>{incompleted}</div>
             </div>
             <div>
               <div>Total</div>
-              <div></div>
+              <div>{total}</div>
             </div>
           </div>
         </div>
