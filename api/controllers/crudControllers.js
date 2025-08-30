@@ -3,8 +3,8 @@ import { Todo } from "../models/todos.db.js";
 
 export const createTodo = async (req, res) => {
   try {
-    const { text, isCompleted } = req.body;
-    const newTodo = await Todo.create({ text, isCompleted });
+    const { text } = req.body;
+    const newTodo = await Todo.create({ text });
 
     res.status(201).json({
       success: true,
@@ -52,9 +52,9 @@ export const deleteTodo = async (req, res) => {
   }
 };
 
-export const getTodos = async () => {
+export const getTodos = async (req, res) => {
   try {
-    const Todos = Todo.find();
+    const Todos = await Todo.find();
     res.status(201).json({
       success: true,
       data: Todos,
